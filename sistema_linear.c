@@ -27,7 +27,8 @@ int main(){
     int m_max = 10000;
     int n, m;
     clock_t start, end;
-    double cpu_time_used;
+    double cpu_time_used1, cpu_time_used2;
+    FILE* f = fopen("resultados.txt", "w");
     
     for (int k = 1; k <= 10; k++) {
         n = k * n_max / 10;
@@ -59,7 +60,7 @@ int main(){
             return 1;
         }
 
-        
+
         for (int i = 0; i < n; i++){
             A[i] = (double*) malloc(m * sizeof(double));
             for (int j = 0; j < m; j++){
@@ -74,15 +75,18 @@ int main(){
     start = clock();
     matrix_vector_produto(A, x, b, &n, &m);
     end = clock();
-    cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-    printf("Tempo de execução com loop aninhado padrão (i, j): %lf segundos\n", cpu_time_used);
+    cpu_time_used1 = ((double) (end - start)) / CLOCKS_PER_SEC;
+    printf("Matriz %dx%d: Tempo de execução com loop aninhado padrão (i,j): %lf segundos\n", n, m, cpu_time_used1);
 
     // Loop aninhado invertido: j, i
     start = clock();
     matrix_vector_produto_invertido(A, x, b, &n, &m);
     end = clock();
-    cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-    printf("Tempo de execução com loop aninhado invertido (j, i): %lf segundos\n\n", cpu_time_used);
+    cpu_time_used2 = ((double) (end - start)) / CLOCKS_PER_SEC;
+    printf("Matriz %dx%d: Tempo de execução com loop aninhado invertido (j,i): %lf segundos\n\n", m, n, cpu_time_used2);
+
+    
+    fprintf(f, "%dx%d %d %lf %lf\n", n, m, k, cpu_time_used1, cpu_time_used2);
 
     // liberando memória alocada
     for (int i = 0; i < n; i++) {
@@ -92,5 +96,6 @@ int main(){
     free(b);
     free(x);
     }
+    fclose(f);
     return 0;
 }
