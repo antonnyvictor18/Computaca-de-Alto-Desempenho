@@ -33,16 +33,40 @@ int main(){
         n = k * n_max / 10;
         m = k * m_max / 10;
         double** A = (double**) malloc(n * sizeof(double*));
+        if (A == NULL) {
+            printf("Erro ao alocar memória para A!\n");
+            return 1;
+        }
+
         double *x = (double *) malloc(m * sizeof(double));
+        if (x == NULL) {
+            printf("Erro ao alocar memória para x!\n");
+            for (int i = 0; i < n; i++) {
+                free(A[i]);
+            }
+            free(A);
+            return 1;
+        }
+
         double *b = (double *) malloc(m * sizeof(double));
+        if (b == NULL) {
+            printf("Erro ao alocar memória para b!\n");
+            for (int i = 0; i < n; i++) {
+                free(A[i]);
+            }
+            free(A);
+            free(x);
+            return 1;
+        }
+
+        
         for (int i = 0; i < n; i++){
             A[i] = (double*) malloc(m * sizeof(double));
             for (int j = 0; j < m; j++){
                 A[i][j] = ((double)rand()/(double)RAND_MAX) * 10.0 - 5.0;
-                x[j] = (double) rand() / RAND_MAX;
-                b[j] = 0;
             }
-            
+            b[i] = 0;
+            x[i] = (double) rand() / RAND_MAX;
         }
 
    
@@ -59,6 +83,11 @@ int main(){
     end = clock();
     cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
     printf("Tempo de execução com loop aninhado invertido (j, i): %lf segundos\n\n", cpu_time_used);
+
+    // liberando memória alocada
+    for (int i = 0; i < n; i++) {
+        free(A[i]);
+    }
     free(A);
     free(b);
     free(x);
