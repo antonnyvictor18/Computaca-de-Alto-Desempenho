@@ -7,7 +7,7 @@ for linguagem in ['C', 'Fortran']:
         k = [int(l[1]) for l in dados]
         tempo1 = [float(l[2]) for l in dados]
         tempo2 = [float(l[3]) for l in dados]
-        #Criando o gráfico
+        
         fig = plt.figure()
         plt.plot(k, tempo1, label='Loop aninhado padrão')
         plt.plot(k, tempo2, label='Loop aninhado invertido')
@@ -19,7 +19,3 @@ for linguagem in ['C', 'Fortran']:
             f"Gráficos/Resultado_{linguagem}.png", 
             dpi=fig.dpi
         )
-
-
-# /home/antonnyvictor/projects/Computaca-de-Alto-Desempenho/TP1/Resultados
-# TP1/Resultados
