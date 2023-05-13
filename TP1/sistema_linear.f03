@@ -34,7 +34,7 @@ subroutine matrix_vector_produto_invertido(A, x, b, n)
         double precision :: start_time, end_time, cpu_time_used1, cpu_time_used2
         character(len=100) :: file_name
             
-        file_name = "resultados_fortran.txt"
+        file_name = "Resultados/resultados_Fortran.txt"
         open(unit=10, file=file_name, status="replace", action="write")
               
         do k = 1, 10
@@ -87,6 +87,10 @@ subroutine matrix_vector_produto_invertido(A, x, b, n)
             cpu_time_used2 = end_time - start_time
             write(*,*) n,"x",n,": Tempo de execução aninhado (i,j): ", cpu_time_used2, " segundos"
             write(*,*)
+
+            ! Escrever os valores no arquivo
+            write(10, '(I0,"x",I0," ",I0," ",F0.3," ",F0.3)') n, n, k, cpu_time_used1, cpu_time_used2
+
             deallocate(A)
             deallocate(x)
             deallocate(b)
@@ -94,3 +98,8 @@ subroutine matrix_vector_produto_invertido(A, x, b, n)
         close(10)
 end program
       
+
+
+
+
+
