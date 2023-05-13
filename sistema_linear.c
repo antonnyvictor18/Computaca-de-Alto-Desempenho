@@ -28,7 +28,7 @@ int main(){
     int n, m;
     clock_t start, end;
     double cpu_time_used1, cpu_time_used2;
-    FILE* f = fopen("resultados.txt", "w");
+    FILE* f = fopen("resultados_c.txt", "w");
     
     for (int k = 1; k <= 10; k++) {
         n = k * n_max / 10;
