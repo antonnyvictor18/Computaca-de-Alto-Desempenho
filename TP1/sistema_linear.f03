@@ -25,7 +25,7 @@ subroutine matrix_vector_produto_invertido(A, x, b, n)
 
     program main
         implicit none
-        integer, parameter :: n_max = 10000
+        integer, parameter :: n_max = 17380
         integer :: k, n, i, j
         real :: numero_aleatorio
         double precision, dimension(:,:), allocatable :: A
